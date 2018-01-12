@@ -2,7 +2,6 @@ package com.optimaize.webcrawlerverifier.bots;
 
 import com.google.common.cache.Cache;
 import com.optimaize.webcrawlerverifier.dns.ReverseDnsVerifier;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,31 +14,31 @@ class KnownHostBotVerifierImpl implements KnownHostBotVerifier {
 
     private static final Logger log = LoggerFactory.getLogger(KnownHostBotVerifierImpl.class);
 
-    @NotNull
+
     private final CrawlerData crawlerData;
-    @NotNull
+
     private final ReverseDnsVerifier dnsVerifier;
-    @NotNull
+
     private final Cache<String, BotCheckerResult> cache;
 
-    public KnownHostBotVerifierImpl(@NotNull CrawlerData crawlerData,
-                                    @NotNull ReverseDnsVerifier dnsVerifier,
-                                    @NotNull Cache<String, BotCheckerResult> dnsResultCache) {
+    KnownHostBotVerifierImpl(CrawlerData crawlerData,
+                             ReverseDnsVerifier dnsVerifier,
+                             Cache<String, BotCheckerResult> dnsResultCache) {
         this.crawlerData = crawlerData;
         this.dnsVerifier = dnsVerifier;
         this.cache = dnsResultCache;
     }
 
-    @NotNull
+
     @Override
     public String getIdentifier() {
         return crawlerData.getIdentifier();
     }
 
     @Override
-    @NotNull
-    public BotCheckerResult check(@NotNull String userAgent, @NotNull String ip) {
-        if (!crawlerData.getUserAgentChecker().apply(userAgent)) {
+
+    public BotCheckerResult check( String userAgent,  String ip) {
+        if (!crawlerData.getUserAgentChecker().test(userAgent)) {
             return BotCheckerResult.IS_NOT;
         } else {
             Set<String> permittedIps = crawlerData.getIps();

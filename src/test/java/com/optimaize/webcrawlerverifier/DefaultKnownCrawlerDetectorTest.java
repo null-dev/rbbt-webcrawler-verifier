@@ -1,23 +1,26 @@
 package com.optimaize.webcrawlerverifier;
 
-import com.optimaize.webcrawlerverifier.bots.*;
-import org.testng.annotations.Test;
+import com.optimaize.webcrawlerverifier.bots.BuiltInCrawlers;
+import com.optimaize.webcrawlerverifier.bots.CrawlerData;
+import com.optimaize.webcrawlerverifier.bots.KnownHostBotVerifier;
+import com.optimaize.webcrawlerverifier.bots.KnownHostBotVerifierBuilder;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 /**
  * These are not unit tests, they are real world data tests. They may fail if
- *  - a provider has changed their network setup
- *  - internet drops
+ * - a provider has changed their network setup
+ * - internet drops
  */
-public class DefaultKnownCrawlerDetectorTest {
+class DefaultKnownCrawlerDetectorTest {
 
     @Test
-    public void none() throws Exception {
+    void none() throws Exception {
         DefaultKnownCrawlerDetector detector = all();
         assertFalse(detector.detect("", "127.0.0.1").isPresent());
     }
@@ -26,7 +29,7 @@ public class DefaultKnownCrawlerDetectorTest {
      * see https://support.google.com/webmasters/answer/1061943?hl=en
      */
     @Test
-    public void googlebot() throws Exception {
+    void googlebot() throws Exception {
         DefaultKnownCrawlerDetector detector = all();
 
         KnownCrawlerResult r = new KnownCrawlerResult("GOOGLEBOT", KnownCrawlerResultStatus.VERIFIED);
@@ -50,7 +53,7 @@ public class DefaultKnownCrawlerDetectorTest {
      * see http://www.bing.com/webmaster/help/which-crawlers-does-bing-use-8c184ec0
      */
     @Test
-    public void bingbot() throws Exception {
+    void bingbot() throws Exception {
         DefaultKnownCrawlerDetector detector = all();
 
         KnownCrawlerResult r = new KnownCrawlerResult("BINGBOT", KnownCrawlerResultStatus.VERIFIED);
@@ -69,7 +72,7 @@ public class DefaultKnownCrawlerDetectorTest {
     }
 
     @Test
-    public void baiduspider() throws Exception {
+    void baiduspider() throws Exception {
         DefaultKnownCrawlerDetector detector = all();
 
         KnownCrawlerResult r = new KnownCrawlerResult("BAIDUSPIDER", KnownCrawlerResultStatus.VERIFIED);
@@ -85,7 +88,7 @@ public class DefaultKnownCrawlerDetectorTest {
     }
 
     @Test
-    public void yandexbot() throws Exception {
+    void yandexbot() throws Exception {
         DefaultKnownCrawlerDetector detector = all();
 
         KnownCrawlerResult r = new KnownCrawlerResult("YANDEXBOT", KnownCrawlerResultStatus.VERIFIED);
@@ -99,7 +102,7 @@ public class DefaultKnownCrawlerDetectorTest {
     }
 
 //    @Test
-//    public void sogouspider() throws Exception {
+//    void sogouspider() throws Exception {
 //        DefaultKnownCrawlerDetector detector = all();
 //
 //        KnownCrawlerResult r = new KnownCrawlerResult("SOGOUSPIDER", KnownCrawlerResultStatus.VERIFIED);
@@ -111,7 +114,7 @@ public class DefaultKnownCrawlerDetectorTest {
 //    }
 
     @Test
-    public void duckduckbot() throws Exception {
+    void duckduckbot() throws Exception {
         DefaultKnownCrawlerDetector detector = all();
 
         KnownCrawlerResult r = new KnownCrawlerResult("DUCKDUCKBOT", KnownCrawlerResultStatus.VERIFIED);
@@ -123,7 +126,7 @@ public class DefaultKnownCrawlerDetectorTest {
     }
 
     @Test
-    public void yahooslurp() throws Exception {
+    void yahooslurp() throws Exception {
         DefaultKnownCrawlerDetector detector = all();
 
         KnownCrawlerResult r;

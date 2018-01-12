@@ -1,30 +1,39 @@
 package com.optimaize.webcrawlerverifier.bots;
 
 import com.google.common.collect.ImmutableList;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
-import static org.testng.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class GooglebotDataTest {
+@DisplayName("GooglebotData Specification")
+class GooglebotDataTest {
 
     @Test
-    public void testGetIdentifier() throws Exception {
+    @DisplayName("Identifier must match")
+    void testGetIdentifier() {
         assertEquals(GooglebotData.getInstance().getIdentifier(), "GOOGLEBOT");
     }
 
     @Test
-    public void testGetUserAgentChecker() throws Exception {
-        assertTrue(GooglebotData.getInstance().getUserAgentChecker().apply("foo Googlebot bar"));
-        assertFalse(GooglebotData.getInstance().getUserAgentChecker().apply("foo Google bar"));
+    @DisplayName("UserAgent detection")
+    void testGetUserAgentChecker() {
+        assertAll(
+                () -> assertTrue(GooglebotData.getInstance().getUserAgentChecker().test("foo Googlebot bar")),
+                () -> assertFalse(GooglebotData.getInstance().getUserAgentChecker().test("foo Google bar"))
+        );
     }
 
     @Test
-    public void testGetIps() throws Exception {
+    @DisplayName("There are no whitelisted IPs")
+    void testGetIps() {
         assertTrue(GooglebotData.getInstance().getIps().isEmpty());
     }
 
     @Test
-    public void testGetHostnames() throws Exception {
-        assertEquals(GooglebotData.getInstance().getHostnames(), ImmutableList.of("googlebot.com"));
+    @DisplayName("Accepts googlebot.com as valid hostname")
+    void testGetHostnames() {
+        assertThat(GooglebotData.getInstance().getHostnames()).containsAll(ImmutableList.of("googlebot.com"));
     }
 }

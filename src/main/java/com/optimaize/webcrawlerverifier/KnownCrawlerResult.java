@@ -1,18 +1,14 @@
 package com.optimaize.webcrawlerverifier;
 
-import org.jetbrains.annotations.NotNull;
-
 /**
  * Result returned by the {@link KnownCrawlerDetector#detect} method.
  */
 public class KnownCrawlerResult {
 
-    @NotNull
     private final String identifier;
-    @NotNull
     private final KnownCrawlerResultStatus status;
 
-    public KnownCrawlerResult(@NotNull String identifier, @NotNull KnownCrawlerResultStatus status) {
+    KnownCrawlerResult(String identifier, KnownCrawlerResultStatus status) {
         this.identifier = identifier;
         this.status = status;
     }
@@ -20,14 +16,14 @@ public class KnownCrawlerResult {
     /**
      * @see com.optimaize.webcrawlerverifier.bots.CrawlerData#getIdentifier()
      */
-    @NotNull
+
     public String getIdentifier() {
         return identifier;
     }
 
     /**
      */
-    @NotNull
+
     public KnownCrawlerResultStatus getStatus() {
         return status;
     }

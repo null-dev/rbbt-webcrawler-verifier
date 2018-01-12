@@ -1,11 +1,10 @@
 package com.optimaize.webcrawlerverifier.bots;
 
-import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableSet;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
 import java.util.Set;
+import java.util.function.Predicate;
 
 /**
  * Resources:
@@ -13,13 +12,7 @@ import java.util.Set;
  */
 public class BaiduspiderData implements CrawlerData {
 
-    private static final Predicate<String> PREDICATE = new Predicate<String>() {
-        @Override
-        public boolean apply(String userAgent) {
-            if (userAgent.contains("Baiduspider")) return true;
-            return false;
-        }
-    };
+    private static final Predicate<String> PREDICATE = userAgent -> userAgent.contains("Baiduspider");
 
     /**
      * Source: http://help.baidu.com/question?prod_en=master&class=498&id=1000973
@@ -36,23 +29,23 @@ public class BaiduspiderData implements CrawlerData {
     }
 
 
-    @NotNull
+
     @Override
     public String getIdentifier() {
         return "BAIDUSPIDER";
     }
 
-    @Override @NotNull
+    @Override
     public Predicate<String> getUserAgentChecker() {
         return PREDICATE;
     }
 
-    @Override @NotNull
+    @Override
     public Set<String> getIps() {
         return Collections.emptySet();
     }
 
-    @Override @NotNull
+    @Override
     public Set<String> getHostnames() {
         //usually "crawl.baidu.com"
         return HOSTNAMES;

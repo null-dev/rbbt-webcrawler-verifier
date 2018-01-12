@@ -1,9 +1,6 @@
 package com.optimaize.webcrawlerverifier.dns;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.xbill.DNS.*;
 
 import java.io.IOException;
@@ -12,18 +9,17 @@ import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Implementation that uses the dnsjava library.
- *
+ * <p>
  * <p>If you have other needs, you may exclude the dnsjava Maven dependency using an exclude rule in your pom
  * and then feed your own implementation.</p>
  */
 public class DnsjavaReverseDnsVerifier extends BaseReverseDnsVerifier {
 
-    @Nullable
     private final String[] dnsServers;
-
 
     /**
      * Uses the default dns server(s) provided by the system.
@@ -35,14 +31,13 @@ public class DnsjavaReverseDnsVerifier extends BaseReverseDnsVerifier {
     /**
      * TODO verify the dns servers are used in both requests, see below.
      */
-    public DnsjavaReverseDnsVerifier(@NotNull List<String> dnsServers) {
+    public DnsjavaReverseDnsVerifier(List<String> dnsServers) {
         this.dnsServers = ImmutableList.copyOf(dnsServers).toArray(new String[dnsServers.size()]);
     }
 
 
-
     @Override
-    public boolean verify(@NotNull String ip, @NotNull Collection<String> allowedHostNames) throws IOException {
+    public boolean verify(String ip, Collection<String> allowedHostNames) throws IOException {
         InetAddress ipAsInetAddress = InetAddress.getByName(ip);
         byte[] bytes = ipAsInetAddress.getAddress();
         Optional<String> oActualHostname = getHostByAddr(bytes);
@@ -50,7 +45,7 @@ public class DnsjavaReverseDnsVerifier extends BaseReverseDnsVerifier {
             return false;
         }
         String actualHostname = oActualHostname.get();
-        if (actualHostname.endsWith(".")) actualHostname = actualHostname.substring(0, actualHostname.length()-1);
+        if (actualHostname.endsWith(".")) actualHostname = actualHostname.substring(0, actualHostname.length() - 1);
         if (!contained(actualHostname, allowedHostNames)) {
             return false;
         }
@@ -71,8 +66,10 @@ public class DnsjavaReverseDnsVerifier extends BaseReverseDnsVerifier {
      * Performs a reverse DNS lookup.
      *
      * @param addr The ip address to lookup.
+     *
      * @return The host name found for the ip address.
-     *         Absent if the ip is not mapped, or something.
+     * Absent if the ip is not mapped, or something.
+     *
      * @throws IOException on a possibly temporary network error.
      */
     private Optional<String> getHostByAddr(byte[] addr) throws IOException {
@@ -80,7 +77,7 @@ public class DnsjavaReverseDnsVerifier extends BaseReverseDnsVerifier {
 
         Record[] records;
         Lookup lookup;
-        if (dnsServers!=null) {
+        if (dnsServers != null) {
             final Resolver res = new ExtendedResolver(dnsServers);
             lookup = new Lookup(name, Type.PTR);
             lookup.setResolver(res);
@@ -91,17 +88,18 @@ public class DnsjavaReverseDnsVerifier extends BaseReverseDnsVerifier {
         }
 
         int result = lookup.getResult();
-        if (result==Lookup.TRY_AGAIN) {
-            throw new IOException("Network error when trying to look up "+ Arrays.toString(addr) +", try again.");
+        if (result == Lookup.TRY_AGAIN) {
+            throw new IOException("Network error when trying to look up " + Arrays.toString(addr) + ", try again.");
         }
         if (result != Lookup.SUCCESSFUL || records == null) {
-            return Optional.absent();
+            return Optional.empty();
         }
         return Optional.of(((PTRRecord) records[0]).getTarget().toString());
     }
 
     /**
      * TODO how are timeouts handled? Why doesn't dnsjav document exceptions?
+     *
      * @return Absent for unknown host.
      */
     private static Optional<InetAddress> getIpByHost(String hostName) {
@@ -110,10 +108,9 @@ public class DnsjavaReverseDnsVerifier extends BaseReverseDnsVerifier {
             InetAddress addr = Address.getByName(hostName);
             return Optional.of(addr);
         } catch (UnknownHostException e) {
-            return Optional.absent();
+            return Optional.empty();
         }
     }
-
 
 
     private static boolean contained(String actualHostname, Collection<String> expectedDomain) {

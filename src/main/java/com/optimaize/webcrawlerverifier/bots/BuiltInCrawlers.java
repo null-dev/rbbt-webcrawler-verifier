@@ -1,7 +1,6 @@
 package com.optimaize.webcrawlerverifier.bots;
 
 import com.google.common.collect.ImmutableList;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -13,10 +12,10 @@ public class BuiltInCrawlers {
     /**
      * The list is returned non-strictly defined order of global importance.
      * This way, the more important ones are checked first when iterating.
-     *
+     * <p>
      * <p>Don't want all? Filter on {@link CrawlerData#getIdentifier()}.</p>
      */
-    @NotNull
+
     public static List<CrawlerData> get() {
         return ImmutableList.of(
                 //currently Bing seems to be spidering the most, but still...

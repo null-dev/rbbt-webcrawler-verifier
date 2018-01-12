@@ -1,19 +1,19 @@
 package com.optimaize.webcrawlerverifier.dns;
 
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * These are not unit tests, they are real world data tests. They may fail if
- *  - a provider has changed their network setup
- *  - internet drops
+ * - a provider has changed their network setup
+ * - internet drops
  */
-public class DnsjavaReverseDnsVerifierTest {
+class DnsjavaReverseDnsVerifierTest {
 
     @Test
-    public void testVerify() throws Exception {
+    void testVerify() throws Exception {
         DnsjavaReverseDnsVerifier verifier = new DnsjavaReverseDnsVerifier();
 
         //has reverse dns:

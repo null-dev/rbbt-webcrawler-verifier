@@ -1,19 +1,19 @@
 package com.optimaize.webcrawlerverifier.bots;
 
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
-public class BuiltInCrawlersTest {
+class BuiltInCrawlersTest {
 
     @Test
-    public void expectCount() throws Exception {
+    void expectCount() throws Exception {
         assertEquals(BuiltInCrawlers.get().size(), 6); //change when new ones are added
     }
 
     @Test
-    public void expectBingbot() throws Exception {
+    void expectBingbot() throws Exception {
         for (CrawlerData crawlerData : BuiltInCrawlers.get()) {
             if (crawlerData.getIdentifier().equals("BINGBOT")) {
                 return;
@@ -23,10 +23,10 @@ public class BuiltInCrawlersTest {
     }
 
     @Test
-    public void validIdentifiers() throws Exception {
+    void validIdentifiers() throws Exception {
         for (CrawlerData crawlerData : BuiltInCrawlers.get()) {
             if (!crawlerData.getIdentifier().matches("[A-Z0-9\\-]{2,20}")) {
-                fail("Invalid identifier: >>>"+crawlerData.getIdentifier()+"<<<");
+                fail("Invalid identifier: >>>" + crawlerData.getIdentifier() + "<<<");
             }
         }
     }
@@ -38,19 +38,19 @@ public class BuiltInCrawlersTest {
                     "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
 
     @Test
-    public void validateIpHostnames() throws Exception {
+    void validateIpHostnames() throws Exception {
         for (CrawlerData crawlerData : BuiltInCrawlers.get()) {
             if (crawlerData.getIps().isEmpty() && crawlerData.getHostnames().isEmpty()) {
-                fail("Does not provide any data: >>>"+crawlerData.getIdentifier()+"<<<");
+                fail("Does not provide any data: >>>" + crawlerData.getIdentifier() + "<<<");
             }
             for (String ip : crawlerData.getIps()) {
                 if (!ip.matches(IPADDRESS_PATTERN)) {
-                    fail("Invalid ip: "+ip);
+                    fail("Invalid ip: " + ip);
                 }
             }
             for (String hostname : crawlerData.getHostnames()) {
                 if (!hostname.matches("[a-z.\\-]+")) { //feel free to improve...
-                    fail("Invalid hostname: "+hostname);
+                    fail("Invalid hostname: " + hostname);
                 }
             }
         }
