@@ -60,7 +60,7 @@ public class KnownHostBotVerifierBuilder {
     }
 
 
-    public KnownHostBotVerifierImpl build() {
+    public KnownHostBotVerifier build() {
         if (dnsVerifier == null) throw new IllegalArgumentException("No dnsVerifier provided!");
         if (dnsResultCache == null) throw new IllegalArgumentException("No cache provided!");
         return new KnownHostBotVerifierImpl(crawlerData, dnsVerifier, dnsResultCache);

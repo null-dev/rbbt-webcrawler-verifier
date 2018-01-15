@@ -8,7 +8,7 @@ public class KnownCrawlerResult {
     private final String identifier;
     private final KnownCrawlerResultStatus status;
 
-    KnownCrawlerResult(String identifier, KnownCrawlerResultStatus status) {
+    public KnownCrawlerResult(String identifier, KnownCrawlerResultStatus status) {
         this.identifier = identifier;
         this.status = status;
     }

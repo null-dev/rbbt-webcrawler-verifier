@@ -15,7 +15,7 @@ public class DefaultKnownCrawlerDetector implements KnownCrawlerDetector {
 
     private final List<KnownHostBotVerifier> verifiers;
 
-    DefaultKnownCrawlerDetector(List<KnownHostBotVerifier> verifiers) {
+    public DefaultKnownCrawlerDetector(List<KnownHostBotVerifier> verifiers) {
         this.verifiers = ImmutableList.copyOf(verifiers);
     }
 
