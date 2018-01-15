@@ -131,7 +131,7 @@ For such kind of information take a look at http://uadetector.sourceforge.net/
 
 (see pom.xml file)
 
-1. com.intellij annotations - For the @Nullable and @NotNull annotations. It's tiny.
+1. com.intellij annotations - For the @Nullable and  annotations. It's tiny.
 1. Guava - For the Optional and the Cache. No discussion.
 1. org.slf4j slf4j-api - The logging api everyone uses.
 1. dnsjava - For the dns lookups. Alternatively you can put an exclude filter on it and implement the

@@ -1,7 +1,5 @@
 package com.optimaize.webcrawlerverifier.bots;
 
-import org.jetbrains.annotations.NotNull;
-
 /**
  * Verification for user-agents of known origin, such as Googlebot, bingbot etc that are documented as
  * coming from certain networks or having certain host names.
@@ -21,7 +19,7 @@ public interface KnownHostBotVerifier {
     /**
      * @see com.optimaize.webcrawlerverifier.bots.CrawlerData#getIdentifier()
      */
-    @NotNull
+
     String getIdentifier();
 
     /**
@@ -34,7 +32,7 @@ public interface KnownHostBotVerifier {
      *           See http://en.wikipedia.org/wiki/X-Forwarded-For
      * @return
      */
-    @NotNull
-    BotCheckerResult check(@NotNull String userAgent, @NotNull String ip);
+
+    BotCheckerResult check( String userAgent,  String ip);
 
 }

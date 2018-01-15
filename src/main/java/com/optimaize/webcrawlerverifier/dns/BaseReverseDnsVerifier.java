@@ -1,7 +1,5 @@
 package com.optimaize.webcrawlerverifier.dns;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
@@ -12,12 +10,12 @@ import java.util.Collections;
 public abstract class BaseReverseDnsVerifier implements ReverseDnsVerifier {
 
     @Override
-    public boolean verify(@NotNull String ip, @NotNull String allowedHostName) throws IOException {
+    public boolean verify(String ip, String allowedHostName) throws IOException {
         return verify(ip, Collections.singleton(allowedHostName));
     }
 
     @Override
-    public boolean verify(@NotNull String ip, @NotNull Collection<String> allowedHostNames) throws IOException {
+    public boolean verify(String ip, Collection<String> allowedHostNames) throws IOException {
         return false;
     }
 }
