@@ -2,15 +2,9 @@ package com.optimaize.webcrawlerverifier.bots;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 class BuiltInCrawlersTest {
-
-    @Test
-    void expectCount() throws Exception {
-        assertEquals(BuiltInCrawlers.get().size(), 6); //change when new ones are added
-    }
 
     @Test
     void expectBingbot() throws Exception {
