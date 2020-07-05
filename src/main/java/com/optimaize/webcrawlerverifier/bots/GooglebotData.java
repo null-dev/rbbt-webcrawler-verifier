@@ -15,7 +15,7 @@ public class GooglebotData implements CrawlerData {
 
     private static final Predicate<String> PREDICATE = userAgent -> userAgent.contains("Googlebot");
 
-    private static final ImmutableSet<String> HOSTNAMES = ImmutableSet.of("googlebot.com");
+    private static final ImmutableSet<String> HOSTNAMES = ImmutableSet.of("googlebot.com", "google.com");
 
 
     private static final GooglebotData INSTANCE = new GooglebotData();
